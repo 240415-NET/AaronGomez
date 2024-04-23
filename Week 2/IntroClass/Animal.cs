@@ -1,0 +1,6 @@
+namespace IntroClass;
+
+class Animal
+{
+
+}
