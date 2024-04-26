@@ -1,15 +1,15 @@
 namespace SimpleHackathon2;
 
-public class myObject
+public class groceryItem
 {
     public string Name;
     public string Category;
 
-    public static string[] categoryArray = ["Bakery", "Meat", "Frozen", "Dairy", "Miscellaneous"];
+    public static string[] categoryArray = ["Fresh Produce", "Bakery", "Meat", "Frozen", "Dairy", "Miscellaneous"];
     public double Price;
     public bool Purchased = false;
 
-    public myObject(string Name, string Category, double Price)
+    public groceryItem(string Name, string Category, double Price)
     {
         this.Name = Name;
         this.Category = Category;
@@ -20,5 +20,7 @@ public class myObject
     {
 	    return $"Name: {Name}, Category: {Category}, Price per unit: ${Price}";
     }
+
+    
 
 }
