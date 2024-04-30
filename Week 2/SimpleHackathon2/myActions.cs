@@ -17,14 +17,14 @@ public class myActions
         Console.WriteLine("Press q to exit");
 
         
-        string menuSelection = Console.ReadLine().Trim().ToLower();
+        string menuSelection = (Console.ReadLine()??"").Trim().ToLower();
         if(menuSelection == "1")
         {
             //Add Object from user's input
             try
             {
             Console.WriteLine("What do you want to add to your Grocery List?");
-            string name = Console.ReadLine().Trim().ToLower();
+            string name = (Console.ReadLine()??"").Trim().ToLower();
             Console.WriteLine($"How much does {name} cost?");
             double price = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine($"Select a category for {name} from this list:");

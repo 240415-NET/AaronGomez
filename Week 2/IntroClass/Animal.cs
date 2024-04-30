@@ -1,6 +1,0 @@
-namespace IntroClass;
-
-class Animal
-{
-
-}
