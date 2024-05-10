@@ -162,6 +162,7 @@ public class Menu
         {
             Console.WriteLine("1. Answer a Trivia Question");
             Console.WriteLine("2. Exit program");
+            //int input = HandleUserInput.ReturnUserInput("integerOnly");
             try
             {
                 int userChoice = Convert.ToInt32(Console.ReadLine());
@@ -170,19 +171,11 @@ public class Menu
                 switch (userChoice)
                 {
                     case 1: // Answer a Trivia Question
-                        //Call QuestionController to set Trivia Question
                         TriviaQuestion chosenQuestion = new();
                         chosenQuestion = QuestionController.RandomQuestion();
-                        /*do
-                        {
-                        
-                        }
-                        while(QuestionController.QuestionAnswered(myUser, chosenQuestion) ==true)*/
-                        ;
-                        //TriviaQuestion chosenQuestion = new TriviaQuestion("How tall is Mount Everest (in Feet)?", 29032, "feet");
                         Console.WriteLine(chosenQuestion.questionText);
                         GuessController.MakeGuess(myUser, chosenQuestion);
-                        //MainMenu(myUser);
+                        MainMenu(myUser);
                         return;
                     case 2: //User chooses to exit the program
                         return; //This return exits this method, and returns us to where it was called.
@@ -191,7 +184,6 @@ public class Menu
                         validInput = false;
                         break;
                 }
-
             }
             catch
             {   
@@ -219,37 +211,39 @@ public class Menu
             {
                 int userChoice = Convert.ToInt32(Console.ReadLine());
                 validInput = true;
+                List<TriviaQuestion> myList = QuestionController.DisplayAllQuestions();
+                int selectedQuestion = Convert.ToInt32(Console.ReadLine());
 
                 switch (userChoice)
                 {
                     case 1: //Add a TriviaQuestion
-                        //Call QuestionController to set Trivia Question
                         Console.WriteLine("What is the new Trivia Question?");
-                        string questionText = Console.ReadLine();
+                        string? questionText = Console.ReadLine();
                         Console.WriteLine("What is the correct answer?");
                         int answer = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("What unit is the answer in?");
-                        string unit = Console.ReadLine();
+                        string? unit = Console.ReadLine();
                         QuestionController.CreateQuestion(questionText, answer, unit);
-                        //MainMenu(myUser);
+                        AdminMenu(myUser);
                         return;
-                    case 2: //ModifyQuestion method needed
+                    case 2: //ModifyQuestion 
                         Console.WriteLine("Select a question to modify?");
-                        List<TriviaQuestion> myList = QuestionController.DisplayAllQuestions();
-                        int selectedQuestion = Convert.ToInt32(Console.ReadLine());
-                        QuestionController.DeleteQuestion(myList[selectedQuestion]);
+                        QuestionController.ModifyQuestion(myList[selectedQuestion]);
+                        AdminMenu(myUser);
                         return; 
-                    case 3: //DeleteQuestion method needed
+                    case 3: //DeleteQuestion 
                         Console.WriteLine("Select a question to remove");
                         QuestionController.DisplayAllQuestions();
+                        QuestionController.DeleteQuestion(myList[selectedQuestion]);
                         Console.ReadLine();
+                        AdminMenu(myUser);
                         return;
                     case 4: //Return to Main Menu
                         MainMenu(myUser);
                         return;
                     //case 5: //User chooses to exit the program
                         //return;
-                    default: // If the user enters an integer that is not 1, 2, or 3
+                    default: // If the user enters an integer that is not one of the cases
                         Console.WriteLine("Please select one of the menu options");
                         validInput = false;
                         break;

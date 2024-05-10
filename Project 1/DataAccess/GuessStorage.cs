@@ -9,15 +9,25 @@ public class GuessStorage ()
     {   
             string existingGuesses = File.ReadAllText(filePath);
 
-            List<Guess> existingGuessesList = JsonSerializer.Deserialize<List<Guess>>(existingGuesses);
+            List<Guess> existingGuessesList = ReadGuesses();
 
             //If loop if you already have a guess for the same trivia question
             existingGuessesList.Add(guess);
 
-            string jsonExistingUsersListString = JsonSerializer.Serialize(existingGuessesList);
+            string jsonGuessesString = JsonSerializer.Serialize(existingGuessesList);
 
-            File.WriteAllText(filePath, jsonExistingUsersListString);
+            File.WriteAllText(filePath, jsonGuessesString);
     }
+
+    public static List<Guess> ReadGuesses()
+    {   
+        string existingGuesses = File.ReadAllText(filePath);
+
+        List<Guess> existingGuessesList = JsonSerializer.Deserialize<List<Guess>>(existingGuesses);
+
+        return existingGuessesList;
+    }
+
 
 
 

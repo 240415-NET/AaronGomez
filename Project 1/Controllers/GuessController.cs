@@ -44,6 +44,7 @@ public class GuessController
         Console.WriteLine($"You answered faster than {countFasterThan/numberOfGuesses}% of other guessers.");
 
         GuessStorage.StoreGuess(newGuess);
-        //return;
+        Console.WriteLine("---------------------------------");
+        return;
     }
 }

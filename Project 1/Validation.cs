@@ -55,3 +55,67 @@ public class ValidateUserInput
 
     }
 }
+
+public class HandleUserInput()
+{
+    public static bool ValidateUserInput(string userInput, string validationType, int limiter =0, int lowerlimit = 0)
+    {
+        if (string.IsNullOrEmpty(userInput))
+        {
+            Console.WriteLine("Please enter something");
+            return false;
+        }
+        switch (validationType)
+        {
+            case "alphaOnly":
+
+                break;
+            case "integerOnly":
+                int testInt;
+                if (!Int32.TryParse(userInput, out testInt))
+                {
+                    Console.WriteLine("Enter a whole number.");
+                    return false;
+                }
+                //if(limiter>0 && Convert.ToInt32(userInput) > limiter)
+                if (testInt > limiter || testInt <=0)
+                {
+                    Console.WriteLine("Enter one of the applicable options");
+                    return false;
+                }
+                /**else if(testInt <= lowerlimit)
+                {
+                    Console.WriteLine("This should be a positive whole number. Not 0, not negative. Try again.");
+                    return false;
+                }*/
+                return true;
+            default:
+                return true;
+        }
+        return true;
+    }
+    public static string ReturnUserInput(string validationType, bool valIsSingleChar = false, int limiter = 0, int lowerlimit = 0)
+    {
+        string strUserInput;
+        bool isValid;
+        //bool keepAsking = true;
+        //do
+        //{
+            strUserInput = (Console.ReadLine()??"").Trim();
+            Console.ForegroundColor = ConsoleColor.Red;
+            isValid = ValidateUserInput(strUserInput, validationType, limiter, lowerlimit);
+            Console.ResetColor();
+            if (!isValid)
+            {
+                strUserInput = "noCurrentValidInput";
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
+            // else
+            // {
+            //     keepAsking = false;
+            // }
+        //}while (keepAsking);
+        return strUserInput;
+    }
+}

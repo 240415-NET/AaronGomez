@@ -9,6 +9,7 @@ public class TriviaQuestion
 
     public TriviaQuestion()
     {
+        unit="";
     }
 
     public TriviaQuestion(string _questionText, int _correctAnswer, string _unit)
