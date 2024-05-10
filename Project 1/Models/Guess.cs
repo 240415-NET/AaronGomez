@@ -1,8 +1,20 @@
 public class Guess
 {
     //guesserId ties to userId in User
-    int guesserId {get; set;}
+    public Guid guesserId {get; set;}
     //questionId ties to TriviaQuestion questionId
-    int questionId {get; }
-    float guess {get; set;}
+    public Guid questionId {get; set;}
+
+    public int guessText{get; set;}
+    public TimeSpan guessTime {get; set;}
+
+    public Guess()
+    {}
+
+    public Guess(Guid _userId, Guid _questionId, int _guessText, TimeSpan _guessTime){
+        guesserId = _userId;
+        questionId = _questionId;
+        guessText = _guessText;
+        guessTime = _guessTime;
+    }
 }

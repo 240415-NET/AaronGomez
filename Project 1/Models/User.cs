@@ -1,18 +1,14 @@
 
 public class User
 {
-    public int userId {get;}
-    public string? username {get; set;}
-
-    public float guess {get; set;}
-
+    public Guid userId {get;}
+    public string? userName {get; set;}
     public User()
     {}
 
+    public User(string _userName){
+        userId = Guid.NewGuid(); //This creates a random Guid for us, without us having to worry about it
+        userName = _userName;
+    }
+
 }
-
-//Admin Subclass
-/*class Admin 
-{
-
-}*/
