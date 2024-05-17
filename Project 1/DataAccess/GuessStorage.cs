@@ -33,20 +33,33 @@ public class GuessStorage ()
 
     public static bool FindGuess(Guid userId, Guid guessToFind)
     {
-        //Guess foundGuess = new(userId, guessToFind);
 
         try{
             string existingGuessesString = File.ReadAllText(filePath);
 
-            List<Guess> existingUsersList = JsonSerializer.Deserialize<List<Guess>>(existingGuessesString);
+            List<Guess> existingGuessesList = JsonSerializer.Deserialize<List<Guess>>(existingGuessesString);
+            //Guess foundGuess = new();
+            //I need this to check by both userId and guessTofind
+            //Guess foundGuess = existingGuessesList.FirstOrDefault(guess => guess.questionId == guessToFind);
 
-            Guess foundGuess = existingUsersList.FirstOrDefault(guess => guess.questionId == guessToFind);
-
-            if (foundGuess==null)
+            foreach (Guess guess in existingGuessesList){
+            if(guess.questionId == guessToFind)
+            {
+                if(guess.guesserId == userId)
+                {
+                    //foundGuess = guess;
+                    return true;
+                }
+            }
+            }
             return false;
-            else
-            return true;
 
+            /*if(foundGuess.guesserId==Guid.Empty)
+            return true;
+            else
+            {
+                return false;
+            }*/
         }
         catch (Exception e)
         {
@@ -56,7 +69,7 @@ public class GuessStorage ()
 
     }
 
-public static List<Guess> CompareGuess(Guid guessToFind)
+/*public static List<Guess> CompareGuess(Guid guessToFind)
     {
         //Guess foundGuess = new(guessToFind);
 
@@ -86,6 +99,6 @@ public static List<Guess> CompareGuess(Guid guessToFind)
             List<Guess> emptyList = new();
             return emptyList;
         }
-    }
+    }*/
 
 }

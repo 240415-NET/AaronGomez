@@ -1,86 +1,26 @@
 [
     {
-        "questionId": "00000000-0000-0000-0000-000000000000",
-        "questionText": "How many bones are in the human body?",
-        "correctAnswer": 206,
-        "unit": "feet"
-    },
-    {
         "questionId": "00000000-0000-0000-0000-000000000001",
-        "questionText": "How many miles is the drive from London to Madrid?",
-        "correctAnswer": 1068,
-        "unit": "miles"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000002",
-        "questionText": "How many songs did the Beatles record?",
-        "correctAnswer": 213,
-        "unit": "songs"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000003",
-        "questionText": "How many patents did Edison take out",
-        "correctAnswer": 1093,
-        "unit": "patents"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000004",
         "questionText": "How many bones are in the human body?",
         "correctAnswer": 206,
         "unit": "bones"
     },
     {
-        "questionId": "00000000-0000-0000-0000-000000000005",
-        "questionText": "How many bridges are there between Miami and Key West?",
-        "correctAnswer": 42,
-        "unit": "bridges"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000006",
-        "questionText": "When did Pocahontas arrive in England?",
-        "correctAnswer": 1616,
-        "unit": "AD"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000007",
-        "questionText": "How many publishers rejected Harry Potter?",
-        "correctAnswer": 12,
-        "unit": "publishers"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000008",
-        "questionText": "How many mexican states are there?",
-        "correctAnswer": 32,
-        "unit": "states"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000009",
-        "questionText": "How long is the Great Barrier Reef (in Miles)",
-        "correctAnswer": 1430,
+        "questionId": "00000000-0000-0000-0000-000000000002",
+        "questionText": "How many miles is the drive from London to Madrid?",
+        "correctAnswer": 1068,
         "unit": "miles"
     },
     {
-        "questionId": "00000000-0000-0000-0000-000000000010",
-        "questionText": "How much is the cash prize for a Nobel Prize (in Swedish Krona)",
-        "correctAnswer": 10000000,
-        "unit": "Krona"
+        "questionId": "00000000-0000-0000-0000-000000000003",
+        "questionText": "How many songs did the Beatles record?",
+        "correctAnswer": 213,
+        "unit": "songs"
     },
     {
-        "questionId": "00000000-0000-0000-0000-000000000011",
-        "questionText": "When was the Eiffel Tower built?",
-        "correctAnswer": 1889,
-        "unit": "AD"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000012",
-        "questionText": "How many days did the Battle of Verdun last?",
-        "correctAnswer": 302,
-        "unit": "days"
-    },
-    {
-        "questionId": "00000000-0000-0000-0000-000000000013",
-        "questionText": "When did Pocahontas arrive in England?",
-        "correctAnswer": 1616,
-        "unit": "AD"
+        "questionId": "00000000-0000-0000-0000-000000000004",
+        "questionText": "How many patents did Edison take out",
+        "correctAnswer": 1093,
+        "unit": "patents"
     }
 ]

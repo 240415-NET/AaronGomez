@@ -33,11 +33,11 @@ public class Menu
                 switch (userChoice)
                 {
                     case 1: // Creating a new user profile
-                        UserCreationMenu(myUser);
+                        myUser = UserCreationMenu(myUser);
                         MainMenu(myUser);
                         break;
                     case 2:
-                        UserLoginMenu(myUser);
+                        myUser = UserLoginMenu(myUser);
                         MainMenu(myUser);
                         break;
                     case 3: //User chooses to exit the program
@@ -69,11 +69,10 @@ public class Menu
 
         do
         {   
-            Console.WriteLine("Please enter a username: ");
-
+            Console.WriteLine("Please enter your username");
             userInput = Console.ReadLine() ?? "";
 
-            userInput = userInput.Trim();
+            userInput = userInput.Trim().ToLower();
 
             if(String.IsNullOrEmpty(userInput))
             {
@@ -87,7 +86,7 @@ public class Menu
             }
             else
             { 
-                UserController.CreateUser(userInput);
+                myUser = UserController.CreateUser(userInput);
                 Console.WriteLine("Profile created!");
                 validInput = true;
             }
@@ -97,7 +96,7 @@ public class Menu
 
     }
 
-    public static void UserLoginMenu(User currentUser)
+    public static User UserLoginMenu(User currentUser)
     {
         bool exitCondition = false;
         do
@@ -147,11 +146,12 @@ public class Menu
                 else
                 {
                     Console.WriteLine($"Welcome back, {currentUser.userName}!");
-                    //return currentUser;
+                    return currentUser;
                     exitCondition = true;
                 }
             }
         }while(!exitCondition);
+        return currentUser;
     }
 
     public static void MainMenu(User myUser)
@@ -162,7 +162,6 @@ public class Menu
         {
             Console.WriteLine("1. Answer a Trivia Question");
             Console.WriteLine("2. Exit program");
-            //int input = HandleUserInput.ReturnUserInput("integerOnly");
             try
             {
                 int userChoice = Convert.ToInt32(Console.ReadLine());
@@ -172,9 +171,21 @@ public class Menu
                 {
                     case 1: // Answer a Trivia Question
                         TriviaQuestion chosenQuestion = new();
+                        //chosenQuestion = QuestionController.PickAQuestion(myUser);
                         chosenQuestion = QuestionController.RandomQuestion();
+                        if(chosenQuestion ==null)
+                        {
+                            Console.WriteLine("You have already answered all available Trivia Questions");
+                        }
+                        else
+                        {
+                        /*do{
+                        chosenQuestion = QuestionController.RandomQuestion();
+                        }
+                        while(QuestionController.QuestionAnswered(myUser, chosenQuestion)==true);*/
                         Console.WriteLine(chosenQuestion.questionText);
                         GuessController.MakeGuess(myUser, chosenQuestion);
+                        }
                         MainMenu(myUser);
                         return;
                     case 2: //User chooses to exit the program
@@ -211,8 +222,6 @@ public class Menu
             {
                 int userChoice = Convert.ToInt32(Console.ReadLine());
                 validInput = true;
-                List<TriviaQuestion> myList = QuestionController.DisplayAllQuestions();
-                int selectedQuestion = Convert.ToInt32(Console.ReadLine());
 
                 switch (userChoice)
                 {
@@ -227,14 +236,30 @@ public class Menu
                         AdminMenu(myUser);
                         return;
                     case 2: //ModifyQuestion 
-                        Console.WriteLine("Select a question to modify?");
-                        QuestionController.ModifyQuestion(myList[selectedQuestion]);
-                        AdminMenu(myUser);
+                        Console.WriteLine("Select a question to modify:");
+                        List<TriviaQuestion> myList = QuestionStorage.ViewAllQuestions();
+
+                        for(int i = 0; i <= myList.Count(); i++)
+                        {
+                            Console.WriteLine($"{i+1}. {myList[i].questionText}");
+                        }
+                        Console.ReadLine();
+                        try{
+                            int selectedQuestion = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine($"You selected to change {myList[selectedQuestion].questionText}");
+                            QuestionController.ModifyQuestion(myList[selectedQuestion]);
+                        }
+                        catch{
+                            Console.WriteLine("Please enter an integer from the list");
+                        }
+                        //AdminMenu(myUser);
                         return; 
                     case 3: //DeleteQuestion 
                         Console.WriteLine("Select a question to remove");
                         QuestionController.DisplayAllQuestions();
-                        QuestionController.DeleteQuestion(myList[selectedQuestion]);
+                        List<TriviaQuestion> aList = QuestionController.DisplayAllQuestions();
+                        int setQuestion = Convert.ToInt32(Console.ReadLine());
+                        QuestionController.DeleteQuestion(aList[setQuestion]);
                         Console.ReadLine();
                         AdminMenu(myUser);
                         return;

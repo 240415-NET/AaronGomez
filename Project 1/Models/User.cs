@@ -1,7 +1,7 @@
 
 public class User
 {
-    public Guid userId {get;}
+    public Guid userId {get; set;}
     public string? userName {get; set;}
     public User()
     {}

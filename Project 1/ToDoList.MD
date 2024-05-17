@@ -1,6 +1,9 @@
 Implement validation methods
 
-Add guesses to json
-test guess comparison methods
+Implement Interfaces for Users, Guesses, and Questions
 
-Check if the selected user already guessed for that question
+Fix the Timespan comparison in GuessController.MakeGuess
+
+Fix the already guessed method
+
+Create matching databases

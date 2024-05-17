@@ -1,19 +1,20 @@
 public class UserController
 {
     
-    public static void CreateUser(string userName)
+    public static User CreateUser(string userName)
     {
 
         User newUser = new User(userName);
         UserStorage.StoreUser(newUser);
+        return newUser;
     }
 
     public static bool UserExists(string userName)
     {
-        /*if(UserStorage.FindUser(userName) != null)
+        if(UserStorage.FindUser(userName) != null)
         {
             return true;
-        }*/
+        }
 
         return false;
     }

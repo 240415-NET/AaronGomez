@@ -30,6 +30,25 @@ public class QuestionController
         }
         return myList;
     }
+
+    public static TriviaQuestion PickAQuestion(User currentUser)
+    {
+        List<TriviaQuestion> allQuestions = QuestionStorage.ViewAllQuestions();
+        List<TriviaQuestion> unansweredQuestions = new();
+
+        for(int i = 0; i <= allQuestions.Count(); i++)
+        {  
+            if(QuestionAnswered(currentUser, allQuestions[i])==false)
+            {
+                unansweredQuestions.Add(allQuestions[i]);
+            }
+            
+        }
+        Random rand = new();
+        TriviaQuestion selectedQuestion = unansweredQuestions[rand.Next(0,unansweredQuestions.Count())];
+
+        return selectedQuestion;
+    }
     
     public static TriviaQuestion RandomQuestion()
     {
