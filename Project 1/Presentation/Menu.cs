@@ -6,10 +6,11 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Menu
 {
-   
-   //This method displays the initial menu when the user runs the program
-   public static User currentUser = new();
-    public static void StartMenu() {
+
+    //This method displays the initial menu when the user runs the program
+    public static User currentUser = new();
+    public static void StartMenu()
+    {
 
         int userChoice = 0;
         bool validInput = true;
@@ -20,7 +21,7 @@ public class Menu
         Console.WriteLine("1. New user");
         Console.WriteLine("2. Returning user");
         Console.WriteLine("3. Exit program");
-        
+
         //Setting up the try-catch to handle user input with
         //do-while to let them try again
         do
@@ -49,8 +50,8 @@ public class Menu
                 }
 
             }
-            catch (Exception ex) 
-            {   
+            catch (Exception ex)
+            {
                 validInput = false;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
@@ -59,39 +60,39 @@ public class Menu
 
         } while (!validInput);
 
-        
+
     }
 
-    public static User UserCreationMenu(User myUser) 
+    public static User UserCreationMenu(User myUser)
     {
         bool validInput = true;
         string userInput = "";
 
         do
-        {   
+        {
             Console.WriteLine("Please enter your username");
             userInput = Console.ReadLine() ?? "";
 
             userInput = userInput.Trim().ToLower();
 
-            if(String.IsNullOrEmpty(userInput))
+            if (String.IsNullOrEmpty(userInput))
             {
                 Console.WriteLine("Username cannot be blank, please try again.");
                 validInput = false;
             }
-            else if(UserController.UserExists(userInput))
+            else if (UserController.UserExists(userInput))
             {
                 Console.WriteLine("Username already exists, please choose another.");
                 validInput = false;
             }
             else
-            { 
+            {
                 myUser = UserController.CreateUser(userInput);
                 Console.WriteLine("Profile created!");
                 validInput = true;
             }
 
-        } while (!validInput); 
+        } while (!validInput);
         return myUser;
 
     }
@@ -102,8 +103,8 @@ public class Menu
         do
         {
             Console.WriteLine("Please enter your username");
-            string userInput = (Console.ReadLine()??"").Trim();
-            if(String.IsNullOrEmpty(userInput))
+            string userInput = (Console.ReadLine() ?? "").Trim();
+            if (String.IsNullOrEmpty(userInput))
             {
                 Console.WriteLine("Please enter a name");
                 exitCondition = false;
@@ -121,24 +122,24 @@ public class Menu
                     Console.WriteLine($"Welcome back {currentUser.userName}");
                     do
                     {
-                    Console.WriteLine("Please enter your admin password");
-                    try
-                    {
-                    string? adminPassword = Console.ReadLine();
-                    if (adminPassword == "admin")
-                    {
-                        AdminMenu(currentUser);
-                        exitCondition = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("That was the wrong password. Please try again");
-                    }
-                    }
-                    catch
-                    {
-                        Console.WriteLine("I didn't understand");
-                    }
+                        Console.WriteLine("Please enter your admin password");
+                        try
+                        {
+                            string? adminPassword = Console.ReadLine();
+                            if (adminPassword == "admin")
+                            {
+                                AdminMenu(currentUser);
+                                exitCondition = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("That was the wrong password. Please try again");
+                            }
+                        }
+                        catch
+                        {
+                            Console.WriteLine("I didn't understand");
+                        }
                     }
                     while (!exitCondition);
 
@@ -150,14 +151,14 @@ public class Menu
                     exitCondition = true;
                 }
             }
-        }while(!exitCondition);
+        } while (!exitCondition);
         return currentUser;
     }
 
     public static void MainMenu(User myUser)
     {
         bool validInput = true;
-  
+
         do
         {
             Console.WriteLine("1. Answer a Trivia Question");
@@ -173,18 +174,18 @@ public class Menu
                         TriviaQuestion chosenQuestion = new();
                         //chosenQuestion = QuestionController.PickAQuestion(myUser);
                         chosenQuestion = QuestionController.RandomQuestion();
-                        if(chosenQuestion ==null)
+                        if (chosenQuestion == null)
                         {
                             Console.WriteLine("You have already answered all available Trivia Questions");
                         }
                         else
                         {
-                        /*do{
-                        chosenQuestion = QuestionController.RandomQuestion();
-                        }
-                        while(QuestionController.QuestionAnswered(myUser, chosenQuestion)==true);*/
-                        Console.WriteLine(chosenQuestion.questionText);
-                        GuessController.MakeGuess(myUser, chosenQuestion);
+                            /*do{
+                            chosenQuestion = QuestionController.RandomQuestion();
+                            }
+                            while(QuestionController.QuestionAnswered(myUser, chosenQuestion)==true);*/
+                            Console.WriteLine(chosenQuestion.questionText);
+                            GuessController.MakeGuess(myUser, chosenQuestion);
                         }
                         MainMenu(myUser);
                         return;
@@ -197,20 +198,20 @@ public class Menu
                 }
             }
             catch
-            {   
+            {
                 validInput = false;
                 Console.WriteLine("Please enter an integer");
             }
 
         } while (!validInput);
         return;
-    
-    } 
+
+    }
 
     public static void AdminMenu(User myUser)
     {
         bool validInput = true;
-  
+
         do
         {
             Console.WriteLine("1. Add a Trivia Question");
@@ -239,21 +240,16 @@ public class Menu
                         Console.WriteLine("Select a question to modify:");
                         List<TriviaQuestion> myList = QuestionStorage.ViewAllQuestions();
 
-                        for(int i = 0; i <= myList.Count(); i++)
+                        for (int i = 0; i <= myList.Count(); i++)
                         {
-                            Console.WriteLine($"{i+1}. {myList[i].questionText}");
+                            Console.WriteLine($"{i + 1}. {myList[i].questionText}");
                         }
-                        Console.ReadLine();
-                        try{
-                            int selectedQuestion = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine($"You selected to change {myList[selectedQuestion].questionText}");
-                            QuestionController.ModifyQuestion(myList[selectedQuestion]);
-                        }
-                        catch{
-                            Console.WriteLine("Please enter an integer from the list");
-                        }
-                        //AdminMenu(myUser);
-                        return; 
+                        int selectedQuestion = Convert.ToInt32(Console.ReadLine());
+                        
+                        Console.WriteLine($"You selected to change {myList[selectedQuestion-1].questionText}");
+                        QuestionController.ModifyQuestion(myList[selectedQuestion]);
+                        AdminMenu(myUser);
+                        return;
                     case 3: //DeleteQuestion 
                         Console.WriteLine("Select a question to remove");
                         QuestionController.DisplayAllQuestions();
@@ -267,20 +263,20 @@ public class Menu
                         MainMenu(myUser);
                         return;
                     //case 5: //User chooses to exit the program
-                        //return;
+                    //return;
                     default: // If the user enters an integer that is not one of the cases
                         Console.WriteLine("Please select one of the menu options");
-                        validInput = false;
+                        //validInput = false;
                         break;
                 }
             }
             catch
-            {   
+            {
                 validInput = false;
                 Console.WriteLine("Please enter an integer");
             }
 
         } while (!validInput);
         return;
-    } 
+    }
 }

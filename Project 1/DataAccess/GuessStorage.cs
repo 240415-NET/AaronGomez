@@ -17,6 +17,9 @@ public class GuessStorage ()
             string jsonGuessesString = JsonSerializer.Serialize(existingGuessesList);
 
             File.WriteAllText(filePath, jsonGuessesString);
+
+
+            
     }
 
     public static List<Guess> ReadGuesses()
