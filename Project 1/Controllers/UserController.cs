@@ -1,6 +1,6 @@
 public class UserController
 {
-    public static IUserStorageRepo userData = new UserStorage();
+    public static IUserStorageRepo userData = new SqlUserStorage();
     public static User CreateUser(string userName)
     {
 

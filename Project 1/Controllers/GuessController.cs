@@ -1,6 +1,6 @@
 public class GuessController
 {
-    public static IGuessStorageRepo _guessData = new GuessStorage();
+    public static IGuessStorageRepo _guessData = new SqlGuessStorage();
     public static void MakeGuess(User currentUser, TriviaQuestion currentQuestion)
     {
         DateTime AnswerStart = DateTime.Now;
@@ -70,5 +70,10 @@ public class GuessController
     public bool FindGuess(User currentUser, TriviaQuestion currentQuestion)
     {
        return _guessData.FindGuess(currentUser.userId, currentQuestion.questionId);
+    }
+
+    public static List<Guess> ReadGuesses()
+    {
+        return _guessData.ReadGuesses();
     }
 }

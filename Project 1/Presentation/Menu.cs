@@ -238,7 +238,7 @@ public class Menu
                         return;
                     case 2: //ModifyQuestion 
                         Console.WriteLine("Select a question to modify:");
-                        List<TriviaQuestion> myList = QuestionStorage.ViewAllQuestions();
+                        List<TriviaQuestion> myList = QuestionController.DisplayAllQuestions();
 
                         for (int i = 0; i <= myList.Count(); i++)
                         {

@@ -1,10 +1,10 @@
 using System.Data.SqlClient;
 
-public class SqlGuessRepository : IGuessStorageRepo
+public class SqlGuessStorage : IGuessStorageRepo
 {
+    public static string path = "./../ConnectionString.txt";
     public void StoreGuess(Guess guess)
     {
-        string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 
@@ -29,7 +29,6 @@ public class SqlGuessRepository : IGuessStorageRepo
 
     public List<Guess> ReadGuesses()
     {
-        string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 
@@ -66,7 +65,6 @@ public class SqlGuessRepository : IGuessStorageRepo
 
     public bool FindGuess(Guid userId, Guid guessToFind)
     {
-        string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 

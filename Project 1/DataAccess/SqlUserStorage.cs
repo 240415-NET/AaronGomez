@@ -1,8 +1,8 @@
 using System.Data.SqlClient;
 
-public class SqlRepository : IUserStorageRepo
+public class SqlUserStorage : IUserStorageRepo
 {
-    public static string path = "./ConnectionString.txt";
+    public static string path = "./../ConnectionString.txt";
     public void StoreUser(User user)
     {
 
@@ -37,7 +37,6 @@ public class SqlRepository : IUserStorageRepo
 
     public User FindUser(string usernameToFind)
     {
-        //string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 
