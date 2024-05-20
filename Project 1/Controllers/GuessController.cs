@@ -1,5 +1,6 @@
 public class GuessController
 {
+    public static IGuessStorageRepo _guessData = new GuessStorage();
     public static void MakeGuess(User currentUser, TriviaQuestion currentQuestion)
     {
         DateTime AnswerStart = DateTime.Now;
@@ -15,7 +16,7 @@ public class GuessController
         string formattedTime = string.Format("{0:mm\\:ss}", newGuess.guessTime);
         Console.WriteLine($"You answered in {formattedTime} seconds");
 
-        List<Guess> existingGuesses = GuessStorage.ReadGuesses();
+        List<Guess> existingGuesses = _guessData.ReadGuesses();
 
         List<Guess> relevantGuesses = new();
 
@@ -61,8 +62,13 @@ public class GuessController
         
         Console.WriteLine($"You answered faster than {countFasterThan/numberOfGuesses}% of other guessers.");
         }
-        GuessStorage.StoreGuess(newGuess);
+        _guessData.StoreGuess(newGuess);
         Console.WriteLine("---------------------------------");
         return;
+    }
+
+    public bool FindGuess(User currentUser, TriviaQuestion currentQuestion)
+    {
+       return _guessData.FindGuess(currentUser.userId, currentQuestion.questionId);
     }
 }

@@ -1,8 +1,8 @@
 using System.Data.SqlClient;
 
-public static class SqlGuessRepository
+public class SqlGuessRepository : IGuessStorageRepo
 {
-    public static void StoreGuess(Guess guess)
+    public void StoreGuess(Guess guess)
     {
         string path = "./ConnectionString.txt";
 
@@ -27,7 +27,7 @@ public static class SqlGuessRepository
 
     }
 
-    public static List<Guess> ReadGuesses()
+    public List<Guess> ReadGuesses()
     {
         string path = "./ConnectionString.txt";
 
@@ -64,7 +64,7 @@ public static class SqlGuessRepository
             return null;
     }
 
-    /*public static bool FindGuess(Guid userId, Guid guessToFind)
+    public bool FindGuess(Guid userId, Guid guessToFind)
     {
         string path = "./ConnectionString.txt";
 
@@ -95,11 +95,11 @@ public static class SqlGuessRepository
 
         }
         connection.Close();
-        if (String.IsNullOrEmpty(myGuess.guesserId))
-            return null;
+        if (myGuess.guesserId==Guid.Empty)
+            return false;
         else
-            return myUser;
+            return true;
 
-    }*/
+    }
 
 }

@@ -1,10 +1,10 @@
 using System.Text.Json;
 
-public class UserStorage 
+public class UserStorage : IUserStorageRepo
 {
     public static string filePath = "UsersFile.json";
 
-    public static void StoreUser(User user)
+    public void StoreUser(User user)
     {   
 
         if(File.Exists(filePath))
@@ -33,7 +33,7 @@ public class UserStorage
 
     }
 
-    public static User FindUser(string usernameToFind)
+    public User FindUser(string usernameToFind)
     {
         User foundUser = new();
 
@@ -43,22 +43,6 @@ public class UserStorage
             List<User> existingUsersList = JsonSerializer.Deserialize<List<User>>(existingUsersJson);
 
             foundUser = existingUsersList.FirstOrDefault(user => user.userName == usernameToFind);
-
-            //if (foundUser )
-
-            //The above lambda function is essentially iterating through and querying the list for us, 
-            //as if we were doing the foreach loop below
-            // foreach (User user in existingUsersList){
-            //     if(user.userName == usernameToFind)
-            //     {
-            //         return user;
-            //     }
-            // }
-
-            //If it exists, return that user
-            
-
-            //If it doesn't... do something else 
 
 
         }

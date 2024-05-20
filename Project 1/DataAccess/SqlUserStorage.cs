@@ -1,10 +1,10 @@
 using System.Data.SqlClient;
 
-public static class SqlRepository
+public class SqlRepository : IUserStorageRepo
 {
-    public static void StoreUser(User user)
+    public static string path = "./ConnectionString.txt";
+    public void StoreUser(User user)
     {
-        string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 
@@ -35,9 +35,9 @@ public static class SqlRepository
 
     }
 
-    public static User FindUser(string usernameToFind)
+    public User FindUser(string usernameToFind)
     {
-        string path = "./ConnectionString.txt";
+        //string path = "./ConnectionString.txt";
 
         string connectionString = File.ReadAllText(path);
 

@@ -1,10 +1,10 @@
 using System.Text.Json;
 
-public class QuestionStorage 
+public class QuestionStorage : IQuestionStorageRepo
 {
     public static string filePath = "QuestionsFile.json";
 
-    public static void StoreQuestion(TriviaQuestion question)
+    public void StoreQuestion(TriviaQuestion question)
     {   
 
             string existingQuestionsJson = File.ReadAllText(filePath);
@@ -18,7 +18,7 @@ public class QuestionStorage
             File.WriteAllText(filePath, jsonExistingUsersListString);
     }
 
-    public static List<TriviaQuestion> ViewAllQuestions()
+    public List<TriviaQuestion> ViewAllQuestions()
     {   
 
         string existingQuestionsJson = File.ReadAllText(filePath);
@@ -107,7 +107,7 @@ public class QuestionStorage
 
     }*/
 
-    public static void DeleteQuestion(TriviaQuestion question)
+    public void DeleteQuestion(TriviaQuestion question)
     {   
 
         if(File.Exists(filePath))

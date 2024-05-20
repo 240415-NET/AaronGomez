@@ -1,17 +1,17 @@
 public class UserController
 {
-    
+    public static IUserStorageRepo userData = new UserStorage();
     public static User CreateUser(string userName)
     {
 
         User newUser = new User(userName);
-        UserStorage.StoreUser(newUser);
+        userData.StoreUser(newUser);
         return newUser;
     }
 
     public static bool UserExists(string userName)
     {
-        if(UserStorage.FindUser(userName) != null)
+        if(userData.FindUser(userName) != null)
         {
             return true;
         }
@@ -21,7 +21,7 @@ public class UserController
 
     public static User GetUser(string userName)
     {
-        return UserStorage.FindUser(userName);
+        return userData.FindUser(userName);
     }
     
     

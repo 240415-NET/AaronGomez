@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Linq;
 
-public class GuessStorage ()
+public class GuessStorage () : IGuessStorageRepo
 {
     public static string filePath = "GuessesFile.json";
-    public static void StoreGuess(Guess guess)
+    public void StoreGuess(Guess guess)
     {   
             string existingGuesses = File.ReadAllText(filePath);
 
@@ -22,7 +22,7 @@ public class GuessStorage ()
             
     }
 
-    public static List<Guess> ReadGuesses()
+    public List<Guess> ReadGuesses()
     {   
         string existingGuesses = File.ReadAllText(filePath);
 
@@ -34,7 +34,7 @@ public class GuessStorage ()
 
 
 
-    public static bool FindGuess(Guid userId, Guid guessToFind)
+    public bool FindGuess(Guid userId, Guid guessToFind)
     {
 
         try{

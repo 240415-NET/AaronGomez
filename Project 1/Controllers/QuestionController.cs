@@ -1,28 +1,28 @@
 public class QuestionController
 {
-    
+    public static IQuestionStorageRepo _questionData = new QuestionStorage();
     public static void CreateQuestion(string questionText, int answer, string unit)
     {
 
         TriviaQuestion newQuestion = new(questionText, answer, unit);
-        QuestionStorage.StoreQuestion(newQuestion);
+        _questionData.StoreQuestion(newQuestion);
     }
 
-    public static bool QuestionAnswered(User currentUser, TriviaQuestion currentQuestion)
-    {
-        bool GuessFound = GuessStorage.FindGuess(currentUser.userId, currentQuestion.questionId);
-        return GuessFound;
-    }
+    // public static bool QuestionAnswered(User currentUser, TriviaQuestion currentQuestion)
+    // {
+    //     bool GuessFound = GuessController.FindGuess(currentUser, currentQuestion);
+    //     return GuessFound;
+    // }
 
     public static void DeleteQuestion(TriviaQuestion question)
     {
-        QuestionStorage.DeleteQuestion(question);
+        _questionData.DeleteQuestion(question);
 
     }
 
     public static List<TriviaQuestion> DisplayAllQuestions()
     {
-        List<TriviaQuestion> myList = QuestionStorage.ViewAllQuestions();
+        List<TriviaQuestion> myList = _questionData.ViewAllQuestions();
 
         for(int i = 0; i <= myList.Count(); i++)
         {
@@ -33,15 +33,15 @@ public class QuestionController
 
     public static TriviaQuestion PickAQuestion(User currentUser)
     {
-        List<TriviaQuestion> allQuestions = QuestionStorage.ViewAllQuestions();
+        List<TriviaQuestion> allQuestions = _questionData.ViewAllQuestions();
         List<TriviaQuestion> unansweredQuestions = new();
 
         for(int i = 0; i <= allQuestions.Count(); i++)
         {  
-            if(QuestionAnswered(currentUser, allQuestions[i])==false)
-            {
-                unansweredQuestions.Add(allQuestions[i]);
-            }
+            // if(QuestionAnswered(currentUser, allQuestions[i])==false)
+            // {
+            //     unansweredQuestions.Add(allQuestions[i]);
+            // }
             
         }
         Random rand = new();
@@ -52,7 +52,7 @@ public class QuestionController
     
     public static TriviaQuestion RandomQuestion()
     {
-        List<TriviaQuestion> allQuestions = QuestionStorage.ViewAllQuestions();
+        List<TriviaQuestion> allQuestions = _questionData.ViewAllQuestions();
 
         Random rand = new();
         TriviaQuestion selectedQuestion = allQuestions[rand.Next(0,allQuestions.Count())];
@@ -121,8 +121,8 @@ public class QuestionController
         {
             Console.WriteLine("Please enter 'Y' or 'N'");
         }
-        QuestionStorage.DeleteQuestion(question);
-        QuestionStorage.StoreQuestion(modifiedQuestion);
+        _questionData.DeleteQuestion(question);
+        _questionData.StoreQuestion(modifiedQuestion);
         return modifiedQuestion;
     }
 }
