@@ -171,9 +171,9 @@ public class Menu
                 switch (userChoice)
                 {
                     case 1: // Answer a Trivia Question
-                        TriviaQuestion chosenQuestion = new();
-                        //chosenQuestion = QuestionController.PickAQuestion(myUser);
-                        chosenQuestion = QuestionController.RandomQuestion();
+                        //TriviaQuestion chosenQuestion = new();
+                        TriviaQuestion chosenQuestion = QuestionController.PickAQuestion(myUser);
+                        //TriviaQuestion chosenQuestion = QuestionController.RandomQuestion();
                         if (chosenQuestion == null)
                         {
                             Console.WriteLine("You have already answered all available Trivia Questions");
@@ -211,14 +211,15 @@ public class Menu
     public static void AdminMenu(User myUser)
     {
         bool validInput = true;
+        Console.Clear();
 
         do
         {
             Console.WriteLine("1. Add a Trivia Question");
             Console.WriteLine("2. Modify a Trivia Question");
             Console.WriteLine("3. Delete a Trivia Question");
-            Console.WriteLine("4. Return to the Main Menu");
-            //Console.WriteLine("5. Exit program");
+            Console.WriteLine("4. View all Trivia Questions");
+            Console.WriteLine("5. Return to the Main Menu");
             try
             {
                 int userChoice = Convert.ToInt32(Console.ReadLine());
@@ -239,28 +240,26 @@ public class Menu
                     case 2: //ModifyQuestion 
                         Console.WriteLine("Select a question to modify:");
                         List<TriviaQuestion> myList = QuestionController.DisplayAllQuestions();
-
-                        for (int i = 0; i <= myList.Count(); i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {myList[i].questionText}");
-                        }
                         int selectedQuestion = Convert.ToInt32(Console.ReadLine());
                         
                         Console.WriteLine($"You selected to change {myList[selectedQuestion-1].questionText}");
-                        QuestionController.ModifyQuestion(myList[selectedQuestion]);
+                        QuestionController.ModifyQuestion(myList[selectedQuestion-1]);
                         AdminMenu(myUser);
                         return;
                     case 3: //DeleteQuestion 
                         Console.WriteLine("Select a question to remove");
-                        QuestionController.DisplayAllQuestions();
+                        //QuestionController.DisplayAllQuestions();
                         List<TriviaQuestion> aList = QuestionController.DisplayAllQuestions();
                         int setQuestion = Convert.ToInt32(Console.ReadLine());
-                        QuestionController.DeleteQuestion(aList[setQuestion]);
-                        Console.ReadLine();
+                        QuestionController.DeleteQuestion(aList[setQuestion-1]);
                         AdminMenu(myUser);
                         return;
-                    case 4: //Return to Main Menu
-                        MainMenu(myUser);
+                    case 4: 
+                        QuestionController.DisplayAllQuestions();
+                        Console.WriteLine("-----------------");
+                        AdminMenu(myUser);
+                        return;
+                    case 5: //Return to Main Menu
                         return;
                     //case 5: //User chooses to exit the program
                     //return;

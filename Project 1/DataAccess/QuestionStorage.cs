@@ -23,7 +23,6 @@ public class QuestionStorage : IQuestionStorageRepo
 
         string existingQuestionsJson = File.ReadAllText(filePath);
 
-        //should this be a Dict?
         List<TriviaQuestion> existingQuestionsList = JsonSerializer.Deserialize<List<TriviaQuestion>>(existingQuestionsJson);
 
         return existingQuestionsList;

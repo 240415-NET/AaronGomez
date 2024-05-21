@@ -11,3 +11,5 @@ Create matching databases
 add method to view all guesses and the guesser for testing
 
 setup reading guesses from SQL database
+
+remove double exit program prompts (from admin menu?)

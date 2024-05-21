@@ -14,12 +14,12 @@ public class SqlUserStorage : IUserStorageRepo
 
         if(FindUser(user.userName)!=null)
         {
-            Console.WriteLine("User found");
+            //Console.WriteLine("User found");
 
         }
         else
         {
-            Console.WriteLine("User not found");
+            //Console.WriteLine("User not found");
 
             string cmdText = "INSERT INTO Users (userId, userName) VALUES (@userId, @userName)";
 
@@ -56,7 +56,7 @@ public class SqlUserStorage : IUserStorageRepo
 
         while (reader.Read())
         {
-
+            //myUser.userId = reader.GetGuid(0);
             myUser.userId = new Guid(reader.GetString(0));
             myUser.userName = reader.GetString(1);
         }

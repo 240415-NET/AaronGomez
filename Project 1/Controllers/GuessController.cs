@@ -20,56 +20,62 @@ public class GuessController
 
         List<Guess> relevantGuesses = new();
 
-        int sumGuesses = 0;
-        foreach(var q in existingGuesses)
+
+        foreach (var g in existingGuesses)
         {
-            if(q.questionId == newGuess.questionId)
-            relevantGuesses.Add(q);
-            sumGuesses += q.guessText;
+            if (g.questionId == newGuess.questionId)
+            {
+                relevantGuesses.Add(g);
+            }
+            //sumGuesses += q.guessText;}
         }
-            //Do comparisons here and return them?
+        //Do comparisons here and return them?
         int numberOfGuesses = relevantGuesses.Count();
-        
-        if(numberOfGuesses==0)
+
+
+        if (numberOfGuesses == 0)
         {
             Console.WriteLine("There is no one to compare you too.");
         }
         else
         {
-        int averageGuess = sumGuesses/relevantGuesses.Count();
+            int sumGuesses = newGuess.guessText;
 
-        Console.WriteLine($"{relevantGuesses.Count} other people answered this question");
 
-        int distanceFromCorrectAnswer = Math.Abs(currentQuestion.correctAnswer - newGuess.guessText);
-        int countCloserThan = 0;
-        int countFasterThan = 0;
-        foreach(var q in relevantGuesses)
-        {
-            if(q.questionId == newGuess.questionId)
-                sumGuesses += q.guessText;
-            if(Math.Abs(q.guessText-currentQuestion.correctAnswer)<distanceFromCorrectAnswer)
-                countCloserThan+=1;
-            //This is never finding a slower guess
-            if(TimeSpan.Compare(q.guessTime, newGuess.guessTime)==-1)
+            Console.WriteLine($"{relevantGuesses.Count} other people answered this question");
+
+            double distanceFromCorrectAnswer = Math.Abs(currentQuestion.correctAnswer - newGuess.guessText);
+            double countCloserThan = 0;
+            double countFasterThan = 0;
+            foreach (var q in relevantGuesses)
             {
-                countFasterThan+=1;
+                //if(q.questionId == newGuess.questionId)
+                sumGuesses += q.guessText;
+                if (Math.Abs(q.guessText - currentQuestion.correctAnswer) > distanceFromCorrectAnswer)
+                    countCloserThan += 1;
+                //This is never finding a slower guess
+                if (TimeSpan.Compare(q.guessTime, newGuess.guessTime) == 1)
+                {
+                    countFasterThan += 1;
+                }
+                /*if(q.guessTime < newGuess.guessTime)
+                countFasterThan+=1;*/
             }
-            /*if(q.guessTime < newGuess.guessTime)
-            countFasterThan+=1;*/
-        }
+            int averageGuess = sumGuesses / relevantGuesses.Count();
 
-        Console.WriteLine($"Your answer was closer than {countCloserThan} other guessers.");
-        
-        Console.WriteLine($"You answered faster than {countFasterThan/numberOfGuesses}% of other guessers.");
+            Console.WriteLine($"Your answer was closer than {countCloserThan} other guessers.");
+
+            Console.WriteLine($"You answered faster than {countFasterThan / numberOfGuesses} other guessers.");
         }
         _guessData.StoreGuess(newGuess);
         Console.WriteLine("---------------------------------");
         return;
     }
 
-    public bool FindGuess(User currentUser, TriviaQuestion currentQuestion)
+
+    public static bool FindGuess(User currentUser, TriviaQuestion currentQuestion)
     {
-       return _guessData.FindGuess(currentUser.userId, currentQuestion.questionId);
+        return _guessData.FindGuess(currentUser.userId, currentQuestion.questionId);
     }
 
     public static List<Guess> ReadGuesses()

@@ -72,15 +72,15 @@ public class SqlGuessStorage : IGuessStorageRepo
 
         connection.Open();
 
-        string cmdText = @"SELECT userId, userName FROM Users WHERE userName=@usernameToFind;";
+        string cmdText = @"SELECT TOP 1 questionId,userId,guessText,guessTime userName FROM Guesses WHERE userId=@userIdToFind AND questionId=@questionId;";
         //interpolate string cmdText = @"SELECT userId FROM Users WHERE userId=usernameToFind";
 
         using SqlCommand cmd = new SqlCommand(cmdText, connection);
-        cmd.Parameters.AddWithValue("@guessToFind", guessToFind);
+        cmd.Parameters.AddWithValue("@userIdToFind", userId);
+        cmd.Parameters.AddWithValue("@questionId", guessToFind);
 
         using SqlDataReader reader = cmd.ExecuteReader();
 
-        Guess myGuess = new();
 
         while (reader.Read())
         {
@@ -89,15 +89,16 @@ public class SqlGuessStorage : IGuessStorageRepo
             int guessText = reader.GetInt32(2);
             DateTime guessTime = reader.GetDateTime(3);
             TimeSpan guessTimeSpan = guessTime.TimeOfDay;
-            //Guess guess = new(guesserId, questionId, guessText, guessTimeSpan);
+            Guess myGuess = new(guesserId, questionId, guessText, guessTimeSpan);
 
-        }
-        connection.Close();
-        if (myGuess.guesserId==Guid.Empty)
+                    connection.Close();
+            if (myGuess.guesserId==Guid.Empty)
             return false;
         else
             return true;
+        }
 
+        return false;
     }
 
 }
