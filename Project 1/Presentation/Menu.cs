@@ -1,29 +1,22 @@
 using System.Security.Cryptography.X509Certificates;
 
-//Admin Menu
-//View all user inputs (from database)
-//Possible select the active trivia question
-
 public class Menu
 {
-
     //This method displays the initial menu when the user runs the program
-    public static User currentUser = new();
+    public static User myUser = new();
     public static void StartMenu()
     {
 
         int userChoice = 0;
         bool validInput = true;
 
-        User myUser = new();
+        //User myUser = new();
 
-        Console.WriteLine("Welcome to TrackMyStuff!");
+        //Console.WriteLine("Welcome to Trivia Guessing");
         Console.WriteLine("1. New user");
         Console.WriteLine("2. Returning user");
         Console.WriteLine("3. Exit program");
 
-        //Setting up the try-catch to handle user input with
-        //do-while to let them try again
         do
         {
             try

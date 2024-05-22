@@ -44,9 +44,9 @@ public class GuessController
 
             Console.WriteLine($"{relevantGuesses.Count} other people answered this question");
 
-            double distanceFromCorrectAnswer = Math.Abs(currentQuestion.correctAnswer - newGuess.guessText);
-            double countCloserThan = 0;
-            double countFasterThan = 0;
+            int distanceFromCorrectAnswer = Math.Abs(currentQuestion.correctAnswer - newGuess.guessText);
+            int countCloserThan = 0;
+            int countFasterThan = 0;
             foreach (var q in relevantGuesses)
             {
                 //if(q.questionId == newGuess.questionId)
@@ -61,10 +61,16 @@ public class GuessController
                 /*if(q.guessTime < newGuess.guessTime)
                 countFasterThan+=1;*/
             }
-            int averageGuess = sumGuesses / relevantGuesses.Count();
+            int averageGuess = sumGuesses / relevantGuesses.Count;
 
+            
             Console.WriteLine($"Your answer was closer than {countCloserThan} other guessers.");
 
+            if (countFasterThan == relevantGuesses.Count)
+            Console.WriteLine("You are the fastest person to ever answer this question.");
+            else if (countFasterThan == 0)
+            Console.WriteLine("You took the longest of anyone to ever answer this question.");
+            else
             Console.WriteLine($"You answered faster than {countFasterThan / numberOfGuesses} other guessers.");
         }
         _guessData.StoreGuess(newGuess);
